@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 
-const PropertyTypeBtns = ({ checked, onChange }) => {
+const PropertyTypeBtns = ({ selected, onChange }) => {
   const [highlightProperty, setHighlightProperty] = useState("");
 
   const handleRadioChange = (e) => {
+    const { checked, name } = e.target;
+    if (checked) {
+      onChange([...selected, name]);
+    } else {
+      onChange([...selected.filter((selectedName) => selectedName !== name)]);
+    }
     setHighlightProperty(e.target.value);
   };
 
@@ -19,7 +25,7 @@ const PropertyTypeBtns = ({ checked, onChange }) => {
       >
         <input
           type="radio"
-          name="property-type"
+          name="House"
           value="House"
           checked={highlightProperty === "House"}
           onChange={handleRadioChange}
@@ -35,7 +41,7 @@ const PropertyTypeBtns = ({ checked, onChange }) => {
       >
         <input
           type="radio"
-          name="property-type"
+          name="Flat/Apartment"
           value="Flat/Apartment"
           checked={highlightProperty === "Flat/Apartment"}
           onChange={handleRadioChange}
@@ -51,7 +57,7 @@ const PropertyTypeBtns = ({ checked, onChange }) => {
       >
         <input
           type="radio"
-          name="property-type"
+          name="Farmhouse"
           value="Farmhouse"
           checked={highlightProperty === "Farmhouse"}
           onChange={handleRadioChange}
@@ -67,7 +73,7 @@ const PropertyTypeBtns = ({ checked, onChange }) => {
       >
         <input
           type="radio"
-          name="property-type"
+          name="Bunglow"
           value="Bunglow"
           checked={highlightProperty === "Bunglow"}
           onChange={handleRadioChange}
@@ -83,7 +89,7 @@ const PropertyTypeBtns = ({ checked, onChange }) => {
       >
         <input
           type="radio"
-          name="property-type"
+          name="Villa"
           value="Villa"
           checked={highlightProperty === "Villa"}
           onChange={handleRadioChange}
@@ -99,7 +105,7 @@ const PropertyTypeBtns = ({ checked, onChange }) => {
       >
         <input
           type="radio"
-          name="property-type"
+          name="Hotel"
           value="Hotel"
           checked={highlightProperty === "Hotel"}
           onChange={handleRadioChange}
@@ -115,7 +121,7 @@ const PropertyTypeBtns = ({ checked, onChange }) => {
       >
         <input
           type="radio"
-          name="property-type"
+          name="Guest House"
           value="Guest House"
           checked={highlightProperty === "Guest House"}
           onChange={handleRadioChange}
@@ -131,7 +137,7 @@ const PropertyTypeBtns = ({ checked, onChange }) => {
       >
         <input
           type="radio"
-          name="property-type"
+          name="Houseboat"
           value="Houseboat"
           checked={highlightProperty === "Houseboat"}
           onChange={handleRadioChange}
@@ -147,7 +153,7 @@ const PropertyTypeBtns = ({ checked, onChange }) => {
       >
         <input
           type="radio"
-          name="property-type"
+          name="Yacht"
           value="Yacht"
           checked={highlightProperty === "Yacht"}
           onChange={handleRadioChange}
@@ -163,7 +169,7 @@ const PropertyTypeBtns = ({ checked, onChange }) => {
       >
         <input
           type="radio"
-          name="property-type"
+          name="TreeHouse"
           value="TreeHouse"
           checked={highlightProperty === "TreeHouse"}
           onChange={handleRadioChange}

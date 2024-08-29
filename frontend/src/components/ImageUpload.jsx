@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const ImageUpload = () => {
-  const [propertyImages, setpropertyImages] = useState([]);
+const ImageUpload = ({propertyImages, onChange}) => {
 
   function uploadImage(e) {
     const files = e.target.files;
@@ -16,7 +15,7 @@ const ImageUpload = () => {
       })
       .then((response) => {
         const { data: filenames } = response;
-        setpropertyImages((prev) => {
+        onChange((prev) => {
           return [...prev, ...filenames];
         });
       });
@@ -27,7 +26,6 @@ const ImageUpload = () => {
       {propertyImages.length > 0 &&
         propertyImages.map((link, index) => {
           const imageUrl = "http://localhost:4000/" + link;
-          console.log("Image URL:", imageUrl); // Log the URL
           return (
             <div key={index}>
               <img

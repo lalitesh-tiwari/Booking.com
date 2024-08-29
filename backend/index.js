@@ -7,6 +7,7 @@ app.use("/uploads", express.static(__dirname + "/uploads"));
 //
 const db = require("./models/connect");
 const userModel = require("./models/userSchema");
+const propertiesModel = require("./models/propertiesSchema");
 require("dotenv").config();
 //
 const fs = require("fs");
@@ -89,14 +90,53 @@ const multerMW = multer({ dest: "uploads" });
 app.post("/upload", multerMW.array("images", 50), (req, res) => {
   const uploadedImages = [];
   for (let i = 0; i < req.files.length; i++) {
-    const { path , originalname } = req.files[i];
+    const { path, originalname } = req.files[i];
     const parts = originalname.split(".");
     const extName = parts[parts.length - 1];
     const newPath = path + "." + extName;
     fs.renameSync(path, newPath);
-    uploadedImages.push(newPath.replace("uploads/",""));
+    uploadedImages.push(newPath.replace("uploads/", ""));
   }
-  res.json(uploadedImages)
+  res.json(uploadedImages);
+});
+
+app.post("/addproperty", (req, res) => {
+  const {
+    propertyType,
+    propertyTitle,
+    propertyAddress,
+    propertyImages,
+    propertyDescription,
+    propertyOfferings,
+    checkIn,
+    checkOut,
+    maxGuest,
+  } = req.body;
+  const { token } = req.cookies;
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (err) throw err;
+    const propertyDocs = await propertiesModel.create({
+      owner: userData.id,
+      propertyType,
+      propertyTitle,
+      propertyAddress,
+      propertyImages,
+      propertyDescription,
+      propertyOfferings,
+      checkIn,
+      checkOut,
+      maxGuest,
+    });
+    res.json(propertyDocs);
+  });
+});
+
+app.get("/myproperties", (req, res) => {
+  const { token } = req.cookies;
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    const { id } = userData;
+    res.json(await propertiesModel.find({ owner: id }));
+  });
 });
 
 app.post("/logout", (req, res) => {
