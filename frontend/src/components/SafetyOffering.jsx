@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 
-const SafetyOffering = ({checked,onChange}) => {
+const SafetyOffering = ({ selected, onChange }) => {
   const [selectedCheckbox, setselectedCheckbox] = useState([]);
 
   const handleCheckboxes = (e) => {
-    const value = e.target.value;
+    const { checked, name, value } = e.target;
+    if (checked) {
+      onChange([...selected, name]);
+    } else {
+      onChange([...selected.filter((selectedName) => selectedName !== name)]);
+    }
+    // 
     setselectedCheckbox((prev) =>
       prev.includes(value)
         ? prev.filter((item) => item !== value)
@@ -24,6 +30,7 @@ const SafetyOffering = ({checked,onChange}) => {
       >
         <input
           type="checkbox"
+          name="Fire/Smoke Alarm"
           value="Fire/Smoke Alarm"
           checked={selectedCheckbox.includes("Fire/Smoke Alarm")}
           onChange={handleCheckboxes}
@@ -39,6 +46,7 @@ const SafetyOffering = ({checked,onChange}) => {
       >
         <input
           type="checkbox"
+          name="First Aid Kit"
           value="First Aid Kit"
           checked={selectedCheckbox.includes("First Aid Kit")}
           onChange={handleCheckboxes}
@@ -54,6 +62,7 @@ const SafetyOffering = ({checked,onChange}) => {
       >
         <input
           type="checkbox"
+          name="Fire Extinguisher"
           value="Fire Extinguisher"
           checked={selectedCheckbox.includes("Fire Extinguisher")}
           onChange={handleCheckboxes}
@@ -69,6 +78,7 @@ const SafetyOffering = ({checked,onChange}) => {
       >
         <input
           type="checkbox"
+          name="CCTV"
           value="CCTV"
           checked={selectedCheckbox.includes("CCTV")}
           onChange={handleCheckboxes}

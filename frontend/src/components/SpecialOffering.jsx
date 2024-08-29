@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 
-const SpecialOffering = ({ checked, onChange }) => {
+const SpecialOffering = ({ selected, onChange }) => {
   const [selectedCheckbox, setselectedCheckbox] = useState([]);
 
   const handleCheckboxes = (e) => {
-    const value = e.target.value;
+    const { checked, name, value } = e.target;
+    if (checked) {
+      onChange([...selected, name]);
+    } else {
+      onChange([...selected.filter((selectedName) => selectedName !== name)]);
+    }
+    // 
     setselectedCheckbox((prev) =>
       prev.includes(value)
         ? prev.filter((item) => item !== value)
@@ -24,6 +30,7 @@ const SpecialOffering = ({ checked, onChange }) => {
       >
         <input
           type="checkbox"
+          name="Pool"
           value="Pool"
           checked={selectedCheckbox.includes("Pool")}
           onChange={handleCheckboxes}
@@ -39,6 +46,7 @@ const SpecialOffering = ({ checked, onChange }) => {
       >
         <input
           type="checkbox"
+          name="Gym"
           value="Gym"
           checked={selectedCheckbox.includes("Gym")}
           onChange={handleCheckboxes}
@@ -54,6 +62,7 @@ const SpecialOffering = ({ checked, onChange }) => {
       >
         <input
           type="checkbox"
+          name="Outdoor Dining"
           value="Outdoor Dining"
           checked={selectedCheckbox.includes("Outdoor Dining")}
           onChange={handleCheckboxes}
@@ -69,6 +78,7 @@ const SpecialOffering = ({ checked, onChange }) => {
       >
         <input
           type="checkbox"
+          name="Indoor Games"
           value="Indoor Games"
           checked={selectedCheckbox.includes("Indoor Games")}
           onChange={handleCheckboxes}
@@ -84,6 +94,7 @@ const SpecialOffering = ({ checked, onChange }) => {
       >
         <input
           type="checkbox"
+          name="Jacuzzi"
           value="Jacuzzi"
           checked={selectedCheckbox.includes("Jacuzzi")}
           onChange={handleCheckboxes}
@@ -99,6 +110,7 @@ const SpecialOffering = ({ checked, onChange }) => {
       >
         <input
           type="checkbox"
+          name="Firepit"
           value="Firepit"
           checked={selectedCheckbox.includes("Firepit")}
           onChange={handleCheckboxes}
@@ -114,6 +126,7 @@ const SpecialOffering = ({ checked, onChange }) => {
       >
         <input
           type="checkbox"
+          name="BBQ Grill"
           value="BBQ Grill"
           checked={selectedCheckbox.includes("BBQ Grill")}
           onChange={handleCheckboxes}

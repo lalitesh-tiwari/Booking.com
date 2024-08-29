@@ -9,6 +9,9 @@ const db = require("./models/connect");
 const userModel = require("./models/userSchema");
 require("dotenv").config();
 //
+const fs = require("fs");
+const multer = require("multer");
+//
 const bcrypt = require("bcryptjs");
 const bcryptSalt = bcrypt.genSaltSync(10);
 //
@@ -80,6 +83,20 @@ app.get("/profile", (req, res) => {
   } else {
     res.json(null);
   }
+});
+
+const multerMW = multer({ dest: "uploads" });
+app.post("/upload", multerMW.array("images", 50), (req, res) => {
+  const uploadedImages = [];
+  for (let i = 0; i < req.files.length; i++) {
+    const { path , originalname } = req.files[i];
+    const parts = originalname.split(".");
+    const extName = parts[parts.length - 1];
+    const newPath = path + "." + extName;
+    fs.renameSync(path, newPath);
+    uploadedImages.push(newPath.replace("uploads/",""));
+  }
+  res.json(uploadedImages)
 });
 
 app.post("/logout", (req, res) => {

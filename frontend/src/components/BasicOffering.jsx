@@ -1,16 +1,22 @@
 import React, { useState } from "react";
 
-const BasicOffering = ({ checked, onChange }) => {
+const BasicOffering = ({ selected, onChange }) => {
   const [selectedCheckbox, setselectedCheckbox] = useState([]);
 
-  const handleCheckboxes = (e) => {
-    const value = e.target.value;
+  function handleCheckboxes(e) {
+    const { checked, name, value } = e.target;
+    if (checked) {
+      onChange([...selected, name]);
+    } else {
+      onChange([...selected.filter((selectedName) => selectedName !== name)]);
+    }
+    //
     setselectedCheckbox((prev) =>
       prev.includes(value)
         ? prev.filter((item) => item !== value)
         : [...prev, value]
     );
-  };
+  }
 
   const checkboxBorderClass = (value) =>
     selectedCheckbox.includes(value) ? "border-[#e81a61]" : "border-black/25";
@@ -24,6 +30,7 @@ const BasicOffering = ({ checked, onChange }) => {
       >
         <input
           type="checkbox"
+          name="Wi-fi"
           value="Wi-fi"
           checked={selectedCheckbox.includes("Wi-fi")}
           onChange={handleCheckboxes}
@@ -39,6 +46,7 @@ const BasicOffering = ({ checked, onChange }) => {
       >
         <input
           type="checkbox"
+          name="TV"
           value="TV"
           checked={selectedCheckbox.includes("TV")}
           onChange={handleCheckboxes}
@@ -54,6 +62,7 @@ const BasicOffering = ({ checked, onChange }) => {
       >
         <input
           type="checkbox"
+          name="Kitchen"
           value="Kitchen"
           checked={selectedCheckbox.includes("Kitchen")}
           onChange={handleCheckboxes}
@@ -69,6 +78,7 @@ const BasicOffering = ({ checked, onChange }) => {
       >
         <input
           type="checkbox"
+          name="Washing Machine"
           value="Washing Machine"
           checked={selectedCheckbox.includes("Washing Machine")}
           onChange={handleCheckboxes}
@@ -84,6 +94,7 @@ const BasicOffering = ({ checked, onChange }) => {
       >
         <input
           type="checkbox"
+          name="Free Parking Spot"
           value="Free Parking Spot"
           checked={selectedCheckbox.includes("Free Parking Spot")}
           onChange={handleCheckboxes}
@@ -99,6 +110,7 @@ const BasicOffering = ({ checked, onChange }) => {
       >
         <input
           type="checkbox"
+          name="Air Conditioning"
           value="Air Conditioning"
           checked={selectedCheckbox.includes("Air Conditioning")}
           onChange={handleCheckboxes}
@@ -114,6 +126,7 @@ const BasicOffering = ({ checked, onChange }) => {
       >
         <input
           type="checkbox"
+          name="Workspace"
           value="Workspace"
           checked={selectedCheckbox.includes("Workspace")}
           onChange={handleCheckboxes}
@@ -129,6 +142,7 @@ const BasicOffering = ({ checked, onChange }) => {
       >
         <input
           type="checkbox"
+          name="Pets Allowed"
           value="Pets Allowed"
           checked={selectedCheckbox.includes("Pets Allowed")}
           onChange={handleCheckboxes}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 import BasicOffering from "../components/BasicOffering";
 import SpecialOffering from "../components/SpecialOffering";
 import SafetyOffering from "../components/SafetyOffering";
@@ -11,36 +12,28 @@ const PropertyPage = () => {
   const [propertyTitle, setpropertyTitle] = useState("");
   const [propertyAddress, setpropertyAddress] = useState("");
   const [propertyImages, setpropertyImages] = useState([]);
-  const [uploadedImages, setuploadedImages] = useState([]);
   const [propertyDescription, setpropertyDescription] = useState("");
   const [propertyOfferings, setpropertyOfferings] = useState([]);
   const [checkIn, setcheckIn] = useState("12:00");
   const [checkOut, setcheckOut] = useState("12:00");
   const [maxGuest, setmaxGuest] = useState(1);
 
-  function inputHeading(text) {
-    return (
-      <h1 className="text-[1.2vmax] font-semibold leading-[1.2vmax] ml-[0.3vmax]">
-        {text}
-      </h1>
-    );
-  }
-
-  function inputInfo(text) {
-    return (
-      <p className="text-[0.85vmax] font-semibold text-black/55 ml-[0.3vmax]">
-        {text}
-      </p>
-    );
-  }
-
-  function preInput(heading, info) {
-    return (
-      <>
-        {inputHeading(heading)}
-        {inputInfo(info)}
-      </>
-    );
+  function uploadImage(e) {
+    const files = e.target.files;
+    const data = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      data.append("images", files[i]);
+    }
+    axios
+      .post("/upload", data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((response) => {
+        const { data: filenames } = response;
+        setpropertyImages((prev) => {
+          return [...prev, ...filenames];
+        });
+      });
   }
 
   return (
@@ -100,13 +93,30 @@ const PropertyPage = () => {
             Property Images
           </h1>
           <p className="text-[0.85vmax] font-semibold text-black/55 ml-[0.3vmax]">
-            Showcase best side of your property. More=Better
+            Showcase best side of your property. More=Better.
           </p>
-          <div className="border-[2px] border-[#b0b0b0] w-[20vw] h-[20vh] flex items-center justify-center mt-[0.3vmax] rounded-md mb-[1vmax]">
-            <button className="text-[#e81a61] text-[1.1vmax] font-semibold flex items-center gap-1">
-              <i className="ri-upload-2-line font-thin text-[1.3vmax]"></i>{" "}
-              Upload Images
-            </button>
+          <div className="flex items-center gap-[1vmax] mb-[1vmax] mt-[0.5vmax] flex-wrap">
+            {propertyImages.length > 0 &&
+              propertyImages.map((link, index) => {
+                const imageUrl = "http://localhost:4000/" + link;
+                console.log("Image URL:", imageUrl); // Log the URL
+                return (
+                  <div key={index}>
+                    <img
+                      src={imageUrl}
+                      alt={`Property ${index}`}
+                      className="w-[15vw] h-[20vh] object-cover rounded-lg"
+                    />
+                  </div>
+                );
+              })}
+            <div className="border-[2px] border-[#b0b0b0] w-[15vw] h-[20vh] flex items-center justify-center mt-[0.3vmax] rounded-md ">
+              <label className="text-[#e81a61] w-full h-full text-[1.5vmax] font-semibold flex items-center gap-2 cursor-pointer hover:bg-[#e81a61] hover:text-white duration-200">
+                <input type="file" multiple hidden onChange={uploadImage} />
+                <i className="ri-upload-2-line font-thin text-[1.3vmax] ml-[1vmax]"></i>
+                Upload Images
+              </label>
+            </div>
           </div>
           <h1 className="text-[1.2vmax] font-semibold leading-[1.2vmax] ml-[0.3vmax]">
             Property Description
@@ -131,7 +141,7 @@ const PropertyPage = () => {
             </h1>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-[1vmax] mt-[0.3vmax]">
               <BasicOffering
-                checked={propertyOfferings}
+                selected={propertyOfferings}
                 onChange={setpropertyOfferings}
               />
             </div>
@@ -142,7 +152,7 @@ const PropertyPage = () => {
             </h1>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-[1vmax] mt-[0.3vmax]">
               <SpecialOffering
-                checked={propertyOfferings}
+                selected={propertyOfferings}
                 onChange={setpropertyOfferings}
               />
             </div>
@@ -153,7 +163,7 @@ const PropertyPage = () => {
             </h1>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-[1vmax] mt-[0.3vmax]">
               <SafetyOffering
-                checked={propertyOfferings}
+                selected={propertyOfferings}
                 onChange={setpropertyOfferings}
               />
             </div>
