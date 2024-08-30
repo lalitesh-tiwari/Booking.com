@@ -39,7 +39,7 @@ const PropertyForm = () => {
     });
   }, [id]);
 
-  async function addNewProperty(e) {
+  async function saveProperty(e) {
     e.preventDefault();
     const propertyData = {
       propertyType,
@@ -52,8 +52,16 @@ const PropertyForm = () => {
       checkOut,
       maxGuest,
     };
-    await axios.post("/addproperty", propertyData);
-    setredirect(true);
+
+    if (id) {
+      // update existing property
+      await axios.put(`/myproperties/${id}`, propertyData);
+      setredirect(true);
+    } else {
+      // add new property
+      await axios.post("/addproperty", propertyData);
+      setredirect(true);
+    }
   }
 
   if (redirect) {
@@ -63,7 +71,7 @@ const PropertyForm = () => {
   return (
     <div>
       <AccountNav />
-      <form onSubmit={addNewProperty}>
+      <form onSubmit={saveProperty}>
         <h1 className="text-[1.2vmax] font-semibold leading-[1.2vmax] ml-[0.3vmax]">
           Property Type
         </h1>

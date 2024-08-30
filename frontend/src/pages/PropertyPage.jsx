@@ -36,18 +36,15 @@ const PropertyPage = () => {
                 key={property._id}
                 className="w-full h-[30vh] border-[1px] border-[#e81a61] rounded flex items-center gap-[1vmax] p-[0.5vmax] cursor-pointer"
               >
-                {console.log(myproperties)}
                 <div className="rounded w-[20%] flex flex-wrap h-full">
-                  {property.propertyImages.length > 0 &&
-                    property.propertyImages
-                      .slice(0, 4)
-                      .map((image, index) => (
-                        <img
-                          key={index}
-                          src={`http://localhost:4000/${image}`}
-                          className="w-1/2 h-1/2 object-cover rounded p-[0.1vmax] "
-                        />
-                      ))}
+                  {property.propertyImages.length > 0 && (
+                    <img
+                      src={
+                        "http://localhost:4000/" + property.propertyImages[0]
+                      }
+                      className="w-full h-full object-cover rounded"
+                    />
+                  )}
                 </div>
                 <div className=" w-[35%] h-full flex flex-col gap-[0.25vmax]">
                   <h1 className="text-[1.5vmax] font-semibold mb-[0.25vmax]">

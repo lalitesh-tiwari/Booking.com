@@ -144,6 +144,55 @@ app.get("/myproperties/:id", async (req, res) => {
   res.json(await propertiesModel.findById(id));
 });
 
+app.put("/myproperties/:id", async (req, res) => {
+  const { token } = req.cookies;
+  const {
+    propertyType,
+    propertyTitle,
+    propertyAddress,
+    propertyImages,
+    propertyDescription,
+    propertyOfferings,
+    checkIn,
+    checkOut,
+    maxGuest,
+  } = req.body;
+  const { id } = req.params;
+
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (err) {
+      return res.status(403).json({ error: "Invalid token" });
+    }
+    try {
+      const propertyDoc = await propertiesModel.findById(id);
+      if (!propertyDoc) {
+        return res.status(404).json({ error: "Property not found" });
+      }
+      if (userData.id === propertyDoc.owner.toString()) {
+        propertyDoc.set({
+          owner: userData.id,
+          propertyType,
+          propertyTitle,
+          propertyAddress,
+          propertyImages,
+          propertyDescription,
+          propertyOfferings,
+          checkIn,
+          checkOut,
+          maxGuest,
+        });
+        await propertyDoc.save();
+        res.json("ok");
+      } else {
+        res.status(403).json({ error: "Not authorized" });
+      }
+    } catch (error) {
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+});
+
+
 app.post("/logout", (req, res) => {
   res.cookie("token", "").json(true);
 });
