@@ -139,6 +139,11 @@ app.get("/myproperties", (req, res) => {
   });
 });
 
+app.get("/myproperties/:id", async (req, res) => {
+  const { id } = req.params;
+  res.json(await propertiesModel.findById(id));
+});
+
 app.post("/logout", (req, res) => {
   res.cookie("token", "").json(true);
 });

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PropertyTypeBtns from "../components/PropertyTypeBtns";
 import ImageUpload from "../components/ImageUpload";
@@ -20,6 +20,24 @@ const PropertyForm = () => {
   const [checkOut, setcheckOut] = useState("12:00");
   const [maxGuest, setmaxGuest] = useState(1);
   const [redirect, setredirect] = useState(false);
+
+  useEffect(() => {
+    if (!id) {
+      return;
+    }
+    axios.get("/myproperties/" + id).then((response) => {
+      const { data } = response;
+      setpropertyType(data.propertyType[0]);
+      setpropertyTitle(data.propertyTitle);
+      setpropertyAddress(data.propertyAddress);
+      setpropertyImages(data.propertyImages);
+      setpropertyDescription(data.propertyDescription);
+      setpropertyOfferings(data.propertyOfferings);
+      setcheckIn(data.checkIn);
+      setcheckOut(data.checkOut);
+      setmaxGuest(data.maxGuest);
+    });
+  }, [id]);
 
   async function addNewProperty(e) {
     e.preventDefault();
@@ -70,7 +88,7 @@ const PropertyForm = () => {
           value={propertyTitle}
           onChange={(e) => setpropertyTitle(e.target.value)}
           placeholder="Property Title"
-          className="border-[2px] border-[#b0b0b0] pl-[1vmax] mt-[0.25vmax] mb-[1vmax] w-[57vw] h-[5vh] rounded-md outline-none"
+          className="border-[2px] border-[#b0b0b0] pl-[1vmax] mt-[0.25vmax] mb-[1vmax] w-[57vw] h-[5vh] rounded-md outline-[#e81a61]"
         />
 
         <h1 className="text-[1.2vmax] font-semibold leading-[1.2vmax] ml-[0.3vmax]">
@@ -85,7 +103,7 @@ const PropertyForm = () => {
           placeholder="Property Address"
           value={propertyAddress}
           onChange={(e) => setpropertyAddress(e.target.value)}
-          className="border-[2px] border-[#b0b0b0] pl-[1vmax] my-[0.25vmax] w-[57vw] h-[5vh] rounded-md outline-none mb-[1vmax]"
+          className="border-[2px] border-[#b0b0b0] pl-[1vmax] my-[0.25vmax] w-[57vw] h-[5vh] rounded-md outline-[#e81a61] mb-[1vmax]"
         />
         <h1 className="text-[1.2vmax] font-semibold leading-[1.2vmax] ml-[0.3vmax]">
           Property Images
@@ -106,7 +124,7 @@ const PropertyForm = () => {
         <textarea
           value={propertyDescription}
           onChange={(e) => setpropertyDescription(e.target.value)}
-          className="border-[2px] border-[#b0b0b0] w-[57vw] h-[15vh] resize-none rounded-md mt-[0.3vmax] mb-[1vmax]"
+          className="border-[2px] border-[#b0b0b0] w-[57vw] h-[15vh] resize-none rounded-md mt-[0.3vmax] mb-[1vmax] outline-[#e81a61]"
         ></textarea>
         <h1 className="text-[1.2vmax] font-semibold leading-[1.2vmax] ml-[0.3vmax]">
           Property Offerings
@@ -160,7 +178,7 @@ const PropertyForm = () => {
               type="time"
               value={checkIn}
               onChange={(e) => setcheckIn(e.target.value)}
-              className="border border-black/25 bg-[#fafafa] px-[0.5vmax] rounded-[0.3vmax] outline-none ml-[0.5vmax]"
+              className="border border-black/25 bg-[#fafafa] px-[0.5vmax] rounded-[0.3vmax] outline-[#e81a61] ml-[0.5vmax]"
             />
           </label>
           <label>
@@ -171,7 +189,7 @@ const PropertyForm = () => {
               type="time"
               value={checkOut}
               onChange={(e) => setcheckOut(e.target.value)}
-              className="border border-black/25 bg-[#fafafa] px-[0.5vmax] rounded-[0.3vmax] outline-none ml-[0.5vmax]"
+              className="border border-black/25 bg-[#fafafa] px-[0.5vmax] rounded-[0.3vmax] outline-[#e81a61] ml-[0.5vmax]"
             />
           </label>
           <label>
@@ -180,7 +198,7 @@ const PropertyForm = () => {
               type="number"
               value={maxGuest}
               onChange={(e) => setmaxGuest(e.target.value)}
-              className="border border-black/25 h-[4vh] rounded-md ml-[0.3vmax] outline-none pl-[0.5vmax]"
+              className="border border-black/25 h-[4vh] rounded-md ml-[0.3vmax] outline-[#e81a61] pl-[0.5vmax]"
             />
           </label>
         </div>
