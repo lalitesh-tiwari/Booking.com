@@ -111,6 +111,7 @@ app.post("/addproperty", (req, res) => {
     checkIn,
     checkOut,
     maxGuest,
+    price,
   } = req.body;
   const { token } = req.cookies;
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
@@ -126,6 +127,7 @@ app.post("/addproperty", (req, res) => {
       checkIn,
       checkOut,
       maxGuest,
+      price,
     });
     res.json(propertyDocs);
   });
@@ -156,6 +158,7 @@ app.put("/myproperties/:id", async (req, res) => {
     checkIn,
     checkOut,
     maxGuest,
+    price,
   } = req.body;
   const { id } = req.params;
 
@@ -180,6 +183,7 @@ app.put("/myproperties/:id", async (req, res) => {
           checkIn,
           checkOut,
           maxGuest,
+          price,
         });
         await propertyDoc.save();
         res.json("ok");
@@ -192,6 +196,9 @@ app.put("/myproperties/:id", async (req, res) => {
   });
 });
 
+app.get("/users-properties", async (req, res) => {
+  res.json(await propertiesModel.find());
+});
 
 app.post("/logout", (req, res) => {
   res.cookie("token", "").json(true);

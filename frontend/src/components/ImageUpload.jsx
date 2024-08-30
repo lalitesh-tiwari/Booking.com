@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const ImageUpload = ({propertyImages, onChange}) => {
-
+const ImageUpload = ({ propertyImages, onChange }) => {
   function uploadImage(e) {
     const files = e.target.files;
     const data = new FormData();
@@ -21,18 +20,50 @@ const ImageUpload = ({propertyImages, onChange}) => {
       });
   }
 
+  function deleteImage(filename) {
+    onChange([...propertyImages.filter((image) => image !== filename)]);
+  }
+
+  function mainImage(filename) {
+    const newpropertyImages = [
+      filename,
+      ...propertyImages.filter((image) => image !== filename),
+    ];
+    onChange(newpropertyImages);
+  }
+
   return (
     <div className="flex items-center gap-[1vmax] mb-[1vmax] mt-[0.5vmax] flex-wrap">
       {propertyImages.length > 0 &&
         propertyImages.map((link, index) => {
           const imageUrl = "http://localhost:4000/" + link;
           return (
-            <div key={index}>
+            <div key={index} className="imgbox relative">
               <img
                 src={imageUrl}
                 alt={`Property ${index}`}
                 className="w-[15vw] h-[20vh] object-cover rounded-lg"
               />
+              <button
+                type="button"
+                onClick={(e) => deleteImage(e, link)}
+                className="absolute deletebtn top-[-3.8%] right-[0.1%] duration-200"
+              >
+                <i className="ri-close-circle-fill text-[1.7vmax] rounded bg-white/80 text-[#e81a61] cursor-pointer duration-200"></i>
+              </button>
+              <button
+                type="submit"
+                onClick={() => mainImage(link)}
+                className="absolute deletebtn bottom-[-4.8%] left-[0%] duration-200"
+              >
+                <i
+                  className={`${
+                    link === propertyImages[0]
+                      ? "ri-star-s-fill"
+                      : "ri-star-s-line"
+                  } text-[1.6vmax] rounded bg-white/80 text-[#e81a61] cursor-pointer`}
+                ></i>
+              </button>
             </div>
           );
         })}
