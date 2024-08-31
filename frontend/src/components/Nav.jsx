@@ -6,8 +6,8 @@ const Nav = () => {
   const { user } = useContext(UserContext);
   return (
     <div>
-      <nav className="w-full h-[10vh] flex items-center justify-between">
-        <Link to={"/"} className="text-[1.5vmax] font-bold text-[#E81A61]">
+      <nav className="w-full h-[10vh] flex items-center justify-between px-[3vmax]">
+        <Link to={"/"} className="text-[1.5vmax] font-bold text-[#e81a61]">
           <i className="ri-home-heart-fill text-[2vmax] font-thin "></i>
           Booking.com
         </Link>
@@ -32,7 +32,7 @@ const Nav = () => {
           </a>
           <a
             href=""
-            className="px-[0.6vmax] py-[0.3vmax] flex items-center justify-center bg-[#E81A61] rounded-full "
+            className="px-[0.6vmax] py-[0.3vmax] flex items-center justify-center bg-[#e81a61] rounded-full "
           >
             <i className="ri-search-2-line text-[1.2vmax] text-white"></i>
           </a>

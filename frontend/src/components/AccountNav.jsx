@@ -11,7 +11,7 @@ const AccountNav = () => {
   function activeLink(type = null) {
     let classes = "px-[1.5vmax] py-[0.5vmax]";
     if (type === subpage) {
-      classes += " bg-[#E81A61] text-white rounded-[2vmax] font-semibold";
+      classes += " bg-[#e81a61] text-white rounded-[2vmax] font-semibold";
     }
     return classes;
   }

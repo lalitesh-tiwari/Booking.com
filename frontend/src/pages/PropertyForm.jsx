@@ -74,7 +74,7 @@ const PropertyForm = () => {
   return (
     <>
       <AccountNav />
-      <div className=" w-full h-[81.9vh] overflow-y-auto">
+      <div className=" w-full h-[81.9vh] overflow-y-auto px-[7.5vmax] py-[0.5vmax]">
         <form onSubmit={saveProperty}>
           <h1 className="text-[1.2vmax] font-semibold leading-[1.2vmax] ml-[0.3vmax]">
             Property Type
@@ -242,7 +242,7 @@ const PropertyForm = () => {
           </div>
           <button
             type="submit"
-            className="bg-[#e81a61] text-white w-[50vw] h-[6vh] my-[1vmax] mt-[2vmax] ml-[2vmax] rounded-lg"
+            className="bg-[#e81a61] text-white w-[55vw] h-[6vh] my-[1vmax] mt-[2vmax] rounded-lg"
           >
             <i className="ri-add-large-line mr-[0.5vmax]"></i>
             Save Property

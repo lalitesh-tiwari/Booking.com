@@ -3,7 +3,7 @@ import AccountNav from "../components/AccountNav";
 
 const MyBookings = () => {
   return (
-    <div>
+    <div className="px-[7.5vmax]">
       <AccountNav />
       MyBookings Page
     </div>

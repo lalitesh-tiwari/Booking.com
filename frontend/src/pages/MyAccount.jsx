@@ -32,7 +32,7 @@ const MyAccount = () => {
     return <Navigate to={logOutRedirect} />;
   }
   return (
-    <div>
+    <div className="px-[7.5vmax]">
       <AccountNav />
       {subpage === "myaccount" && (
         <div className="border border-black h-[81vh] pt-[2vmax]">
@@ -40,7 +40,7 @@ const MyAccount = () => {
           <p>Email: {user.email}</p>
           <button
             onClick={logOut}
-            className="bg-[#E81A61] text-white px-[1vmax] py-[0.25vmax] rounded-lg mt-[0.5vmax]"
+            className="bg-[#e81a61] text-white px-[1vmax] py-[0.25vmax] rounded-lg mt-[0.5vmax]"
           >
             Logout
           </button>

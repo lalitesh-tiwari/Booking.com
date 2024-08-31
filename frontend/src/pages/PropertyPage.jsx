@@ -15,26 +15,26 @@ const PropertyPage = () => {
   return (
     <div>
       <AccountNav />
-      <div className="h-[81vh] border-r border-l-[2px] border-black/25 p-[1vmax] overflow-auto">
+      <div className="h-[81vh]  border-black/25 px-[7.5vmax] overflow-auto">
         <div className="flex w-full items-center justify-between">
           <h1 className="text-[1.2vmax] font-semibold">
             My Properties <span>({myproperties.length})</span>
           </h1>
           <Link
             to={"/myaccount/myproperties/addnew"}
-            className="bg-[#E81A61] text-white px-[1vmax] py-[0.5vmax] rounded-md"
+            className="bg-[#e81a61] text-white px-[1vmax] py-[0.5vmax] rounded-md"
           >
             <i className="ri-menu-add-line font-thin mr-[0.2vmax]"></i>
             Add New Property
           </Link>
         </div>
-        <div className="rounded w-full mt-[2vmax]">
+        <div className="rounded w-full mt-[1vmax]">
           {myproperties.length > 0 &&
             myproperties.map((property) => (
               <Link
                 to={`/myaccount/myproperties/${property._id}`}
                 key={property._id}
-                className="w-full h-[30vh] border-[1px] border-[#e81a61] rounded flex items-center gap-[1vmax] p-[0.5vmax] cursor-pointer"
+                className="w-full h-[30vh] border-[1px] border-[#e81a61] rounded flex items-center gap-[1vmax] p-[0.5vmax] cursor-pointer mb-[0.5vmax]"
               >
                 <div className="rounded w-[20%] flex flex-wrap h-full">
                   {property.propertyImages.length > 0 && (
@@ -65,12 +65,12 @@ const PropertyPage = () => {
                     {property.propertyAddress}
                   </p>
                 </div>
-                <div className="w-[30%] h-full flex flex-wrap justify-evenly">
+                <div className="w-[40%] h-full flex flex-wrap gap-[0.5vmax] p-[1vmax] ">
                   {property.propertyOfferings.length > 0 &&
                     property.propertyOfferings.map((offering, index) => (
                       <p
                         key={index}
-                        className="border-b border-black/20 w-[49%] flex items-center text-[1vmax]"
+                        className="border-b border-black/20 w-[30%] flex items-center text-[1vmax]"
                       >
                         ▪ {offering}
                       </p>
