@@ -18,8 +18,10 @@ const PropertyForm = () => {
   const [propertyOfferings, setpropertyOfferings] = useState([]);
   const [checkIn, setcheckIn] = useState("12:00");
   const [checkOut, setcheckOut] = useState("12:00");
-  const [maxGuest, setmaxGuest] = useState();
+  const [maxGuest, setmaxGuest] = useState("");
   const [price, setprice] = useState("");
+  const [bedrooms, setbedrooms] = useState("");
+  const [bathrooms, setbathrooms] = useState("");
   const [redirect, setredirect] = useState(false);
 
   useEffect(() => {
@@ -38,6 +40,8 @@ const PropertyForm = () => {
       setcheckOut(data.checkOut);
       setmaxGuest(data.maxGuest);
       setprice(data.price);
+      setbedrooms(data.bedrooms);
+      setbathrooms(data.bathrooms);
     });
   }, [id]);
 
@@ -54,6 +58,8 @@ const PropertyForm = () => {
       checkOut,
       maxGuest,
       price,
+      bedrooms,
+      bathrooms,
     };
 
     if (id) {
@@ -235,6 +241,32 @@ const PropertyForm = () => {
                   value={price}
                   onChange={(e) => setprice(e.target.value)}
                   placeholder="₹ Enter Price"
+                  className="border border-black/25 h-[4vh] rounded-md ml-[0.5vmax] outline-[#e81a61] pl-[0.5vmax] placeholder:text-[0.9vmax] w-[10vw] placeholder:font-semibold text-center"
+                />
+              </label>
+            </div>
+            <div className="flex gap-[1vmax]">
+              <label>
+                <span className="font-semibold text-[1vmax]">Bedrooms :</span>
+                <input
+                  type="number"
+                  required
+                  value={bedrooms}
+                  onChange={(e) => setbedrooms(e.target.value)}
+                  placeholder="Bedrooms Available"
+                  className="border border-black/25 h-[4vh] rounded-md ml-[0.5vmax] w-[10vw] outline-[#e81a61] pl-[0.5vmax] placeholder:text-[0.9vmax] placeholder:font-semibold text-center"
+                />
+              </label>
+              <label>
+                <span className="font-semibold text-[1vmax]">
+                  Bathrooms :
+                </span>
+                <input
+                  type="number"
+                  required
+                  value={bathrooms}
+                  onChange={(e) => setbathrooms(e.target.value)}
+                  placeholder="Bathrooms Available"
                   className="border border-black/25 h-[4vh] rounded-md ml-[0.5vmax] outline-[#e81a61] pl-[0.5vmax] placeholder:text-[0.9vmax] w-[10vw] placeholder:font-semibold text-center"
                 />
               </label>

@@ -6,7 +6,7 @@ const Nav = () => {
   const { user } = useContext(UserContext);
   return (
     <div>
-      <nav className="w-full h-[10vh] flex items-center justify-between px-[3vmax]">
+      <nav className="w-full h-[10vh] flex items-center justify-between px-[7.5vmax]">
         <Link to={"/"} className="text-[1.5vmax] font-bold text-[#e81a61]">
           <i className="ri-home-heart-fill text-[2vmax] font-thin "></i>
           Booking.com

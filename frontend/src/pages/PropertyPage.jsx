@@ -34,7 +34,7 @@ const PropertyPage = () => {
               <Link
                 to={`/myaccount/myproperties/${property._id}`}
                 key={property._id}
-                className="w-full h-[30vh] border-[1px] border-[#e81a61] rounded flex items-center gap-[1vmax] p-[0.5vmax] cursor-pointer mb-[0.5vmax]"
+                className="w-full h-[30vh] border-[1px] border-[#e81a61] rounded flex items-center gap-[1vmax] p-[0.5vmax] cursor-pointer mb-[0.5vmax] overflow-hidden"
               >
                 <div className="rounded w-[20%] flex flex-wrap h-full">
                   {property.propertyImages.length > 0 && (
@@ -53,8 +53,8 @@ const PropertyPage = () => {
                   <p className="text-[1vmax] font-semibold">
                     🏠 {property.propertyType}
                   </p>
-                  <p className="text-[0.95vmax] ">
-                    ◾{property.propertyDescription}
+                  <p className="text-[0.9vmax] ">
+                    ◾{property.propertyDescription.slice(0,200)}...
                   </p>
                   <p className="text-[0.95vmax]">
                     👥Max Guests:{" "}

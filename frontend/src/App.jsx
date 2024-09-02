@@ -10,6 +10,7 @@ import MyAccount from "./pages/MyAccount";
 import PropertyPage from "./pages/PropertyPage";
 import MyBookings from "./pages/MyBookings";
 import PropertyForm from "./pages/PropertyForm";
+import PropertyDetail from "./pages/PropertyDetail";
 
 axios.defaults.baseURL = "http://localhost:4000";
 axios.defaults.withCredentials = true;
@@ -31,11 +32,12 @@ const App = () => {
           <Route
             path="/myaccount/myproperties/addnew"
             element={<PropertyForm />}
-          ></Route>
+          />
           <Route
             path="/myaccount/myproperties/:id"
             element={<PropertyForm />}
-          ></Route>
+          />
+          <Route path="/property/:id" element={<PropertyDetail />} />
         </Route>
       </Routes>
     </UserContextProvider>

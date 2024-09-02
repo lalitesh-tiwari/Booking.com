@@ -112,6 +112,8 @@ app.post("/addproperty", (req, res) => {
     checkOut,
     maxGuest,
     price,
+    bedrooms,
+    bathrooms,
   } = req.body;
   const { token } = req.cookies;
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
@@ -128,6 +130,8 @@ app.post("/addproperty", (req, res) => {
       checkOut,
       maxGuest,
       price,
+      bedrooms,
+      bathrooms,
     });
     res.json(propertyDocs);
   });
@@ -159,6 +163,8 @@ app.put("/myproperties/:id", async (req, res) => {
     checkOut,
     maxGuest,
     price,
+    bedrooms,
+    bathrooms,
   } = req.body;
   const { id } = req.params;
 
@@ -184,6 +190,8 @@ app.put("/myproperties/:id", async (req, res) => {
           checkOut,
           maxGuest,
           price,
+          bedrooms,
+          bathrooms,
         });
         await propertyDoc.save();
         res.json("ok");
@@ -198,6 +206,20 @@ app.put("/myproperties/:id", async (req, res) => {
 
 app.get("/users-properties", async (req, res) => {
   res.json(await propertiesModel.find());
+});
+
+app.get("/property/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const property = await propertiesModel
+      .findById(id)
+      .populate("owner", "fullname");
+    res.json(property);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "An error occurred while fetching the property" });
+  }
 });
 
 app.post("/logout", (req, res) => {
